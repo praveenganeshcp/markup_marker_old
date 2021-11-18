@@ -4,6 +4,7 @@ import { BuilderComponent } from './pages/builder/builder.component';
 import { WidgetsListComponent } from './components/widgets-list/widgets-list.component';
 import { WidgetPropsComponent } from './components/widget-props/widget-props.component';
 import { CoreRoutingModule } from './core-routing.module';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import { CoreRoutingModule } from './core-routing.module';
   ],
   imports: [
     CommonModule,
-    CoreRoutingModule
+    CoreRoutingModule,
+    ReactiveFormsModule
   ]
 })
 export class CoreModule { }

@@ -5,8 +5,8 @@ export class FlexContainer extends Widget {
     super(document.createElement('section'));
     this.makeItFlex();
     this.setBorder();
-    this.setHeight('50%');
-    this.setWidth('50%');
-    this.setResizable();
+    this.setHeight(50);
+    this.setWidth(50);
+    // this.setResizable();
   }
 }
