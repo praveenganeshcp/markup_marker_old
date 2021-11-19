@@ -1,9 +1,6 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild, ViewChildren } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { Button } from '../../widgets/button';
-import { FlexContainer } from '../../widgets/flex-container';
-import { Heading } from '../../widgets/heading';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Widget } from '../../widgets/widget';
+import { WidgetFactory, WidgetTypes } from '../../widgets/widget-factory';
 
 @Component({
   selector: 'app-builder',
@@ -16,46 +13,22 @@ export class BuilderComponent implements OnInit, AfterViewInit {
   private showEditProps: boolean;
   private parentElement: Widget | null;
   private editedElement: Widget | null;
-  editPropsForm: FormGroup;
-  widgets: any[];
 
-  constructor(private formBuilder: FormBuilder) { 
+  constructor() { 
     this.parentElement = null;
     this.showEditProps = false;
     this.editedElement = null;
-    this.widgets = [
-      { text: 'Container', method: this.addFlexContainer.bind(this) },
-      { text: 'Heading', method: this.addHeading.bind(this) },
-      { text: 'Button', method: this.addButton.bind(this) },
-    ]
-    this.editPropsForm = this.formBuilder.group({
-      height: this.formBuilder.control(null),
-      width: this.formBuilder.control(null),
-      paddingLeft: this.formBuilder.control(null),
-      paddingRight: this.formBuilder.control(null),
-      paddingTop: this.formBuilder.control(null),
-      paddingBottom: this.formBuilder.control(null),
-      backgroundColor: this.formBuilder.control('orange'),
-      color: this.formBuilder.control('orange'),
-      fontSize: this.formBuilder.control(null),
-    })
   }
 
-  showEditPropsContainer(ele: Widget) {
-    this.editedElement = ele;
+  ngOnInit(): void { }
+
+  ngAfterViewInit() {
+    this.selectParent(this.convertoToWidget(this.rootElement.nativeElement));
+  }
+
+  showEditPropsContainer(widget: Widget) { 
+    this.editedElement = widget;
     this.showEditProps = true;
-    const editValues = {
-      'height': ele.getHeight(),
-      'width': ele.getWidth(),
-      'paddingLeft': ele.getPaddingLeft(),
-      'paddingBottom': ele.getPaddingBottom(),
-      'paddingTop': ele.getPaddingTop(),
-      'paddingRight': ele.getPaddingRight(),
-      'backgroundColor': ele.getBackgroundColor(),
-      'color': ele.getColor(),
-      'fontSize': ele.getFontSize()
-    }
-    this.editPropsForm.setValue(editValues)
   }
 
   hideEditPropsContainer() {
@@ -66,42 +39,21 @@ export class BuilderComponent implements OnInit, AfterViewInit {
     return this.showEditProps;
   }
 
-  saveProps() {
-    const value = this.editPropsForm.value;
-    this.editedElement?.setHeight(value.height);
-    this.editedElement?.setWidth(value.width);
-    this.editedElement?.setPaddingTop(value.paddingTop);
-    this.editedElement?.setPaddingLeft(value.paddingLeft);
-    this.editedElement?.setPaddingBottom(value.paddingBottom);
-    this.editedElement?.setPaddingRight(value.paddingRight);
-    this.editedElement?.setBackgroundColor(value.backgroundColor);
-    this.editedElement?.setColor(value.color);
-    this.editedElement?.setFontSize(value.fontSize);
-  }
-
-  ngOnInit(): void {
-  }
-
   convertoToWidget(element: any) {
     return new Widget(element);
   }
 
-  ngAfterViewInit() {
-    this.selectParent(this.convertoToWidget(this.rootElement.nativeElement));
-  }
-
-  selectParent(element: Widget) {
-    this.parentElement = element;
+  selectParent(widget: Widget) {
+    this.parentElement = widget;
     this.removeOutline();
     this.parentElement.setOutline();
   }
 
-  addButton() {
-    this.parentElement?.appendNode(new Button());
-  }
-
-  addFlexContainer() {
-    this.parentElement?.appendNode(new FlexContainer());
+  addWidget(widgetType: WidgetTypes) {
+    const widget = WidgetFactory.getInstance(widgetType);
+    if(widget) {
+      this.parentElement?.appendNode(widget);
+    }
   }
 
   removeOutline() {
@@ -110,10 +62,6 @@ export class BuilderComponent implements OnInit, AfterViewInit {
     nodes.forEach((node: HTMLElement) => {
       node.style.outline = 'none';
     })
-  }
-
-  addHeading() {
-    this.parentElement?.appendNode(new Heading());
   }
 
   removeNode() {

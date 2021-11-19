@@ -1,1 +1,3 @@
-<p>widgets-list works!</p>
+<section class="widgets-list">
+  <button class="widgets-list__add-widget" *ngFor="let widget of widgets" (click)="triggerAddWidget(widget.name)">{{widget.text}}</button>
+</section>

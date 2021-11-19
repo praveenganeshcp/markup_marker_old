@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { WidgetTypes } from '../../widgets/widget-factory';
 
 @Component({
   selector: 'app-widgets-list',
@@ -7,9 +8,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class WidgetsListComponent implements OnInit {
 
-  constructor() { }
+  widgets: {text: string, name: WidgetTypes}[];
+  @Output() addWidget = new EventEmitter<WidgetTypes>();
+
+  constructor() {
+    this.widgets = [
+      { text: 'Container', name: 'CONTAINER' },
+      { text: 'Heading', name: 'HEADING' },
+      { text: 'Button', name: 'BUTTON' },
+    ]
+  }
 
   ngOnInit(): void {
+  }
+
+  triggerAddWidget(widgetType: WidgetTypes) {
+    this.addWidget.emit(widgetType);
   }
 
 }
