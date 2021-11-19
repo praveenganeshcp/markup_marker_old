@@ -5,4 +5,8 @@ export class Button extends Widget {
     super(document.createElement('button'));
     this.setLabel('Click me');
   }
+
+  setLabel(label: string) {
+    this.node.innerText = label;
+  }
 }

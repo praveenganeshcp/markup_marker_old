@@ -14,7 +14,7 @@ export class BuilderComponent implements OnInit, AfterViewInit {
 
   @ViewChild('rootElement', {read: ElementRef}) rootElement!: ElementRef;
   private showEditProps: boolean;
-  private parentElement: HTMLElement | null;
+  private parentElement: Widget | null;
   private editedElement: Widget | null;
   editPropsForm: FormGroup;
   widgets: any[];
@@ -36,11 +36,12 @@ export class BuilderComponent implements OnInit, AfterViewInit {
       paddingTop: this.formBuilder.control(null),
       paddingBottom: this.formBuilder.control(null),
       backgroundColor: this.formBuilder.control('orange'),
+      color: this.formBuilder.control('orange'),
+      fontSize: this.formBuilder.control(null),
     })
   }
 
-  showEditPropsContainer(element: any) {
-    const ele = new Widget(element);
+  showEditPropsContainer(ele: Widget) {
     this.editedElement = ele;
     this.showEditProps = true;
     const editValues = {
@@ -50,7 +51,9 @@ export class BuilderComponent implements OnInit, AfterViewInit {
       'paddingBottom': ele.getPaddingBottom(),
       'paddingTop': ele.getPaddingTop(),
       'paddingRight': ele.getPaddingRight(),
-      'backgroundColor': ele.getBackgroundColor()
+      'backgroundColor': ele.getBackgroundColor(),
+      'color': ele.getColor(),
+      'fontSize': ele.getFontSize()
     }
     this.editPropsForm.setValue(editValues)
   }
@@ -72,29 +75,55 @@ export class BuilderComponent implements OnInit, AfterViewInit {
     this.editedElement?.setPaddingBottom(value.paddingBottom);
     this.editedElement?.setPaddingRight(value.paddingRight);
     this.editedElement?.setBackgroundColor(value.backgroundColor);
+    this.editedElement?.setColor(value.color);
+    this.editedElement?.setFontSize(value.fontSize);
   }
 
   ngOnInit(): void {
   }
 
-  ngAfterViewInit() {
-    this.selectParent(this.rootElement.nativeElement);
+  convertoToWidget(element: any) {
+    return new Widget(element);
   }
 
-  selectParent(element: any) {
-    this.parentElement = element as HTMLElement;
+  ngAfterViewInit() {
+    this.selectParent(this.convertoToWidget(this.rootElement.nativeElement));
+  }
+
+  selectParent(element: Widget) {
+    this.parentElement = element;
   }
 
   addButton() {
-    this.parentElement?.appendChild(new Button().getElement());
+    this.parentElement?.appendNode(new Button());
   }
 
   addFlexContainer() {
-    this.parentElement?.appendChild(new FlexContainer().getElement());
+    this.parentElement?.appendNode(new FlexContainer());
   }
 
   addHeading() {
-    this.parentElement?.appendChild(new Heading().getElement());
+    this.parentElement?.appendNode(new Heading());
   }
 
 }
+
+
+
+
+
+
+
+
+
+// height, width, padding, color, backgroundcolor, border-radius, fontsize
+
+// heading
+// small heading
+// p - innertext
+// container - flex props
+// form
+// input - type, name, placeholder
+// button - label
+// table, 
+// 

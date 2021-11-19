@@ -8,36 +8,64 @@ export class Widget {
     this.setPaddingTop(0);
   }
 
-  public getPaddingTop(): number {
+  copyNode() {
+    this.node.parentElement?.appendChild(this.node.cloneNode(true));
+  }
+
+  remove() {
+    this.node.remove();
+  }
+
+  appendNode(node: Widget) {
+    this.node.appendChild(node.getElement());
+  }
+
+  getColor(): string {
+    return this.node.style.color;
+  }
+
+  setColor(color: string): void {
+      this.node.style.color = color;
+  }
+
+  getFontSize(): number {
+      return parseInt(this.node.style.fontSize, 10);
+  }
+
+  setFontSize(fontSize: number): void {
+      this.node.style.fontSize = fontSize+'em';
+  }
+
+  getPaddingTop(): number {
     return parseInt(this.node.style.paddingTop, 10);
   }
 
-  public setPaddingTop(paddingTop: number): void {
+  setPaddingTop(paddingTop: number): void {
     this.node.style.paddingTop = paddingTop+'%';
   }
 
-  public getPaddingBottom(): number {
+  getPaddingBottom(): number {
     return parseInt(this.node.style.paddingBottom, 10);
   }
 
-  public setPaddingBottom(paddingBottom: number): void {
+  setPaddingBottom(paddingBottom: number): void {
     this.node.style.paddingBottom = paddingBottom+'%';
 
   }
 
-  public getPaddingLeft(): number {
+  getPaddingLeft(): number {
     return parseInt(this.node.style.paddingLeft, 10);
   }
 
-  public setPaddingLeft(paddingLeft: number): void {
+  setPaddingLeft(paddingLeft: number): void {
     this.node.style.paddingLeft = paddingLeft+'%';
   }
 
-  public getPaddingRight(): number {
+  getPaddingRight(): number {
     return parseInt(this.node.style.paddingRight, 10);
   }
 
-  public setPaddingRight(paddingRight: number): void {
+   setPaddingRight(paddingRight: number): void {
     this.node.style.paddingRight = paddingRight+'%';
   }
 
@@ -84,12 +112,17 @@ export class Widget {
     this.node.style.border = '1px solid black';
   }
 
+  setBorderRadius(radius: number) {
+    this.node.style.borderRadius = radius+'%';
+  }
+
+  getBorderRadius() {
+    return parseInt(this.node.style.borderRadius,10)
+  }
+
   setResizable() {
     this.node.style.resize = 'both';
     this.node.style.overflow = 'auto';
   }
 
-  setLabel(label: string) {
-    this.node.innerText = label;
-  }
 }
