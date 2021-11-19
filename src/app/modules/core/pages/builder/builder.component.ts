@@ -92,6 +92,8 @@ export class BuilderComponent implements OnInit, AfterViewInit {
 
   selectParent(element: Widget) {
     this.parentElement = element;
+    this.removeOutline();
+    this.parentElement.setOutline();
   }
 
   addButton() {
@@ -102,10 +104,25 @@ export class BuilderComponent implements OnInit, AfterViewInit {
     this.parentElement?.appendNode(new FlexContainer());
   }
 
+  removeOutline() {
+    this.rootElement.nativeElement.style.outline = 'none';
+    const nodes: HTMLElement[] = this.rootElement.nativeElement.querySelectorAll('*');
+    nodes.forEach((node: HTMLElement) => {
+      node.style.outline = 'none';
+    })
+  }
+
   addHeading() {
     this.parentElement?.appendNode(new Heading());
   }
 
+  removeNode() {
+    this.parentElement?.remove();
+  }
+
+  copyNode() {
+    this.parentElement?.copyNode();
+  }
 }
 
 

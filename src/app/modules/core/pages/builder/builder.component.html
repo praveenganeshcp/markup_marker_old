@@ -1,6 +1,10 @@
 <section class="builder flex">
   <main class="builder__container">
     <section (dblclick)="showEditPropsContainer(convertoToWidget($event.srcElement))" (click)="selectParent(convertoToWidget($event.srcElement))" #rootElement style="width: 100%; height: 100%; display: flex; justify-content: space-evenly; align-items: center; border: 1px solid black;"></section>
+    <section>
+      <button (click)="copyNode()">Copy</button>
+      <button (click)="removeNode()">Remove</button>
+    </section>
   </main>
   <section *ngIf="!isShowingEditProps();else editProps" class="builder__widgets">
     <button *ngFor="let widget of widgets" (click)="widget.method()" class="builder__add-widget">{{widget.text}}</button>

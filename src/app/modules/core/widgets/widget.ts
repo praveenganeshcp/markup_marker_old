@@ -9,7 +9,9 @@ export class Widget {
   }
 
   copyNode() {
-    this.node.parentElement?.appendChild(this.node.cloneNode(true));
+    const copiedNode = this.node.cloneNode(true) as HTMLElement;
+    copiedNode.style.outline = 'none';
+    this.node.parentElement?.appendChild(copiedNode);
   }
 
   remove() {
@@ -18,6 +20,14 @@ export class Widget {
 
   appendNode(node: Widget) {
     this.node.appendChild(node.getElement());
+  }
+
+  setOutline() {
+    this.node.style.outline = '2px solid blue';
+  }
+
+  removeOutline() {
+    this.node.style.outline = 'none';
   }
 
   getColor(): string {
