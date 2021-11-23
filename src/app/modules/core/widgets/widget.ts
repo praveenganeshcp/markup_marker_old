@@ -98,6 +98,8 @@ export class Widget {
 
   makeItFlex() {
     this.node.style.display = 'flex';
+    this.node.style.flexWrap = 'wrap';
+    this.node.style.overflow = 'auto';
   }
 
   setNode(node: HTMLElement) {
