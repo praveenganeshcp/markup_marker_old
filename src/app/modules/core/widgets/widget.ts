@@ -98,8 +98,6 @@ export class Widget {
 
   makeItFlex() {
     this.node.style.display = 'flex';
-    this.node.style.justifyContent = 'space-evenly';
-    this.node.style.alignItems = 'center';
   }
 
   setNode(node: HTMLElement) {
