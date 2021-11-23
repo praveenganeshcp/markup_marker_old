@@ -6,6 +6,23 @@ export class Widget {
     this.setPaddingLeft(0);
     this.setPaddingRight(0);
     this.setPaddingTop(0);
+    this.setId(this.generateId());
+  }
+
+  isContainer() {
+    return this.node.tagName === 'SECTION';
+  }
+
+  private generateId() {
+    return this.node.tagName+"_"+Date.now().toString();
+  }
+
+  setId(id: string) {
+    this.node.setAttribute('id', id);
+  }
+
+  getId() {
+    this.node.getAttribute('id');
   }
 
   copyNode() {

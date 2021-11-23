@@ -53,6 +53,9 @@ export class BuilderComponent implements OnInit, AfterViewInit {
     const widget = WidgetFactory.getInstance(widgetType);
     if(widget) {
       this.parentElement?.appendNode(widget);
+      if(widget.isContainer()) {
+        this.selectParent(widget);
+      }
     }
   }
 
