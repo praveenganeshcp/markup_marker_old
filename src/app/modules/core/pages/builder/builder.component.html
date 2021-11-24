@@ -6,10 +6,12 @@
     <main #builderContainer class="builder__container">
       <section (dblclick)="showEditPropsContainer(convertoToWidget($event.srcElement))" (click)="selectParent(convertoToWidget($event.srcElement))" #rootElement style="width: 100%; height: 100%; display: flex; flex-wrap: wrap; border: 1px solid black;"></section>
     </main>
-    <section *ngIf="editedWidget == null" class="builder__node-ops flex">
-      <button (click)="copyNode()">Copy</button>
-      <button (click)="removeNode()">Remove</button>
-      <button (click)="generateCode()">Generate</button>
+    <section  class="builder__node-ops flex">
+      <ng-container *ngIf="editedWidget == null"><
+        <button (click)="copyNode()">Copy</button>
+        <button (click)="removeNode()">Remove</button>
+        <button (click)="generateCode()">Generate</button>
+      </ng-container>
     </section>
   </section>
   <section *ngIf="!isShowingEditProps(); else editProps" class="builder__widgets">

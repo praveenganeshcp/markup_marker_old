@@ -130,7 +130,7 @@ export class WidgetStyle {
   }
 
   setBorderRadius(radius: number) {
-    this.node.style.borderRadius = radius+'%';
+    this.node.style.borderRadius = radius+'px';
   }
 
   getBorderRadius() {
