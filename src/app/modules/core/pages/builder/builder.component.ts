@@ -1,6 +1,8 @@
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { INodeStyle, Widget } from '../../widgets/widget';
 import { WidgetFactory, WidgetTypes } from '../../widgets/widget-factory';
+import htmlFormatter from 'pretty';
+import cssFormatter from 'cssbeautify';
 
 @Component({
   selector: 'app-builder',
@@ -33,13 +35,13 @@ export class BuilderComponent implements OnInit, AfterViewInit {
     const elements = rootElement.querySelectorAll('*') as HTMLElement[];
     let cssText = '';
     elements.forEach(element => {
-      cssText += `.${element.id} {${element.style.cssText}}\n`;
+      cssText += `.${element.id} {${element.style.cssText}}`;
       element.classList.add(`${element.id}`);
       element.removeAttribute('style');
       element.removeAttribute('id');
     })
-    console.log(cssText);
-    console.log(rootElement.children[0].outerHTML);
+    console.log(cssFormatter(cssText))
+    console.log(htmlFormatter(rootElement.children[0].outerHTML));
   }
 
   showEditPropsContainer(widget: Widget) { 
