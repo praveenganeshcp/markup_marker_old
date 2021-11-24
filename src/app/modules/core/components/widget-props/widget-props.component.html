@@ -1,10 +1,22 @@
 <section class="builder__widget-editor">
   <form *ngIf="formPackage" [formGroup]="formPackage.formGroup" (ngSubmit)="handleSubmit()" class="widget-editor__form">
-    <section *ngFor="let formControl of formPackage.renderFields">
-      <label for="containerHeight">{{formControl.label}}</label>
-      <input [formControlName]="formControl.name" [type]="formControl.datatype" id="containerHeight"/>
+    <section class="editor-controls">
+      <section class="widget-editor__control" *ngFor="let formControl of formPackage.renderFields">
+        <ng-container *ngIf="formControl.datatype != 'select'; else selectInp">
+          <label [for]="formControl.name">{{formControl.label}}</label>
+          <input [formControlName]="formControl.name" [type]="formControl.datatype" [id]="formControl.name"/>
+        </ng-container>
+        <ng-template #selectInp>
+          <label [for]="formControl.name">{{formControl.label}}</label>
+          <select [id]="formControl.name" [formControlName]="formControl.name">
+            <option *ngFor="let option of formControl.selectOptions" [value]="option.value">{{option.view}}</option>
+          </select>
+        </ng-template>
+      </section>
     </section>
-  <button type="button">Cancel</button>
-  <button>Save</button>
+    <section class="form-btns flex">
+      <button (click)="cancelApply()" type="button">Close</button>
+      <button type="submit">Save</button>
+    </section>
   </form>
 </section>

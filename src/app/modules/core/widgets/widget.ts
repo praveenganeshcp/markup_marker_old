@@ -1,3 +1,17 @@
+export interface INodeStyle {
+  backgroundColor: string;
+  color: string;
+  paddingLeft: number;
+  paddingRight: number;
+  paddingTop: number;
+  paddingBottom: number;
+  borderRadius: number;
+  id: string;
+  fontSize: number;
+  height: number;
+  width: number;
+}
+
 import { WidgetStyle } from "./widget-style";
 
 export class Widget {
@@ -19,6 +33,20 @@ export class Widget {
 
   getElementName() {
     return this.node.tagName;
+  }
+
+  applyStyles(styles: INodeStyle) {
+    this.style.setHeight(styles.height);
+    this.style.setWidth(styles.width);
+    this.style.setColor(styles.color);
+    this.style.setBackgroundColor(styles.backgroundColor);
+    this.style.setPaddingBottom(styles.paddingBottom);
+    this.style.setPaddingTop(styles.paddingTop);
+    this.style.setPaddingLeft(styles.paddingLeft);
+    this.style.setPaddingRight(styles.paddingRight);
+    this.style.setFontSize(styles.fontSize);
+    this.style.setBorderRadius(styles.borderRadius);
+    this.setId(styles.id);
   }
 
   private generateId() {

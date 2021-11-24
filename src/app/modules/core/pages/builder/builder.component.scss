@@ -1,18 +1,34 @@
 .builder {
   width: 100%;
   height: 100%;
-  background-color: gray;
+}
+.builder__controls {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+}
+.builder__heading {
+  width: 100%;
+  height: 7%;
+  font-size: 2em;
 }
 .builder__container {
-  width: 80%;
-  height: 100%;
-  background-color: green;
+  height: 86%;
+  width: 100%;
   padding: 3%;
+}
+.builder__node-ops {
+  height: 7%;
+  width: 100%;
+}
+.builder__node-ops button {
+  padding: 1%;
+  font-size: 0.7em;
 }
 .builder__widgets {
   width: 20%;
   height: 100%;
-  background-color: yellow;
 }
 .builder__widget-editor {
   @extend .builder__widgets;

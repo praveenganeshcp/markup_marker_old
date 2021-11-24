@@ -1,5 +1,6 @@
 import { FormBuilder, FormControl, FormGroup } from "@angular/forms";
 import { Button } from "./button";
+import { FlexContainer } from "./flex-container";
 import { Heading } from "./heading";
 import { Widget } from "./widget";
 
@@ -69,7 +70,7 @@ export class WidgetFormBuilder {
       controlPackage.formFieldControls.forEach(elementControl => {
         formPackage.formGroup.addControl(elementControl.name, elementControl.control);
       })
-      formPackage.renderFields.concat(controlPackage.renderFields);
+      formPackage.renderFields = formPackage.renderFields.concat(controlPackage.renderFields);
   }
 
   getEditFormForElement(widget: Widget): IFormPackage | null {
@@ -85,8 +86,37 @@ export class WidgetFormBuilder {
       this.addControlsToForm(formGroup, this.getButtonElementControls(widget as Button))
       return formGroup;
     }
+    else if(elementName == 'SECTION') {
+      this.addControlsToForm(formGroup, this.getFlexContainerElementControls(widget as FlexContainer))
+      return formGroup;
+    }
 
     return null;
+  }
+
+  private getFlexContainerElementControls(element: FlexContainer): IControlsPackage {
+    const formFieldControls: IElementControl[] = [
+      { name: 'alignItems', control: this.formBuilder.control(element.style.getAlignItems()) },
+      { name: 'justifyContent', control: this.formBuilder.control(element.style.getJustifyContent())},
+    ]
+    const renderFields: IRenderField[] = [
+      { name: 'alignItems', label: 'Align Items', datatype: 'select', selectOptions: [
+        { value: 'center', view: 'Center' },
+        { value: 'flex-start', view: 'Flex start' },
+        { value: 'flex-end', view: 'Flex end' }
+      ] },
+      {
+        name: 'justifyContent', label: 'Justify content', datatype: 'select', selectOptions: [
+          { value: 'space-evenly', view: 'Space evenly' },
+          { value: 'space-between', view: 'Space between' },
+        { value: 'flex-start', view: 'Flex start' },
+        { value: 'flex-end', view: 'Flex end' }
+        ]
+      }
+    ]
+    return {
+      formFieldControls, renderFields
+    }
   }
 
   private getTextElementControls(element: Heading): IControlsPackage {

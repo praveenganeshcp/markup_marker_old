@@ -63,14 +63,32 @@ export class WidgetStyle {
     return parseInt(this.node.style.paddingRight, 10);
   }
 
-   setPaddingRight(paddingRight: number): void {
+  setPaddingRight(paddingRight: number): void {
     this.node.style.paddingRight = paddingRight+'%';
   }
 
+  getJustifyContent() {
+    return this.node.style.justifyContent;
+  }
+
+  setJustifyContent(value: string) {
+    this.node.style.justifyContent = value;
+  }
+
+  getAlignItems() {
+    return this.node.style.alignItems;
+  }
+
+  setAlignItems(value: string) {
+    this.node.style.alignItems = value;
+  }
+ 
   makeItFlex() {
     this.node.style.display = 'flex';
     this.node.style.flexWrap = 'wrap';
     this.node.style.overflow = 'auto';
+    this.node.style.justifyContent = 'flex-start';
+    this.node.style.alignItems = 'flex-start'
   }
 
   setHeight(height: number) {
@@ -106,7 +124,7 @@ export class WidgetStyle {
   }
 
   getBorderRadius() {
-    return parseInt(this.node.style.borderRadius,10)
+    return parseInt(this.node.style.borderRadius,10) || 0;
   }
 
   setResizable() {

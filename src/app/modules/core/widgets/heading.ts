@@ -1,4 +1,8 @@
-import { Widget } from './widget';
+import { INodeStyle, Widget } from './widget';
+
+interface HeadingStyle extends INodeStyle {
+  innerText: string
+}
 
 export class Heading extends Widget {
   constructor() {
@@ -12,5 +16,10 @@ export class Heading extends Widget {
 
   getText() {
     return this.node.innerText;
+  }
+
+  applyStyles(styles: HeadingStyle) {
+    this.setText(styles.innerText);
+    super.applyStyles(styles);
   }
 }

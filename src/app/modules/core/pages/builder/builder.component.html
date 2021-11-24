@@ -1,16 +1,21 @@
 <section class="builder flex">
-  <main #builderContainer class="builder__container">
-    <section (dblclick)="showEditPropsContainer(convertoToWidget($event.srcElement))" (click)="selectParent(convertoToWidget($event.srcElement))" #rootElement style="width: 100%; height: 100%; display: flex; flex-wrap: wrap; border: 1px solid black;"></section>
-  </main>
-  <section class="builder__node-ops">
-    <button (click)="copyNode()">Copy</button>
-    <button (click)="removeNode()">Remove</button>
-    <button (click)="generateCode()">Generate</button>
+  <section class="builder__controls">
+    <section class="builder__heading flex">
+      <h1>Markup maker</h1>
+    </section>
+    <main #builderContainer class="builder__container">
+      <section (dblclick)="showEditPropsContainer(convertoToWidget($event.srcElement))" (click)="selectParent(convertoToWidget($event.srcElement))" #rootElement style="width: 100%; height: 100%; display: flex; flex-wrap: wrap; border: 1px solid black;"></section>
+    </main>
+    <section *ngIf="editedWidget == null" class="builder__node-ops flex">
+      <button (click)="copyNode()">Copy</button>
+      <button (click)="removeNode()">Remove</button>
+      <button (click)="generateCode()">Generate</button>
+    </section>
   </section>
   <section *ngIf="!isShowingEditProps(); else editProps" class="builder__widgets">
     <app-widgets-list (addWidget)="addWidget($event)"></app-widgets-list>
   </section>
   <ng-template #editProps>
-    <app-widget-props [widget]="editedWidget"></app-widget-props>
+    <app-widget-props class="builder__widget-editor" (cancelEdit)="cancelEdit()" (applyStyles)="applyStylesForEditWidget($event)" [widget]="editedWidget"></app-widget-props>
   </ng-template>
 </section>

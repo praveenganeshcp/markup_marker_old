@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { Widget } from '../../widgets/widget';
+import { INodeStyle, Widget } from '../../widgets/widget';
 import { WidgetFactory, WidgetTypes } from '../../widgets/widget-factory';
 
 @Component({
@@ -56,6 +56,14 @@ export class BuilderComponent implements OnInit, AfterViewInit {
     return this.showEditProps;
   }
 
+  applyStylesForEditWidget(styles: INodeStyle) {
+    this.editedWidget?.applyStyles(styles);
+  }
+
+  cancelEdit() {
+    this.hideEditPropsContainer();
+  }
+
   convertoToWidget(element: any) {
     const widget = WidgetFactory.getInstance(element.tagName as WidgetTypes);
     widget?.setElement(element);
@@ -72,7 +80,6 @@ export class BuilderComponent implements OnInit, AfterViewInit {
     const widget = WidgetFactory.getInstance(widgetType);
     if(widget) {
       this.parentElement?.appendNode(widget);
-      console.log(widget.style.getStyleText());
       if(widget.isContainer()) {
         this.selectParent(widget);
       }

@@ -1,5 +1,5 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { Widget } from '../../widgets/widget';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { INodeStyle, Widget } from '../../widgets/widget';
 import { IFormPackage, IRenderField, WidgetFormBuilder } from '../../widgets/widget-editor';
 
 @Component({
@@ -10,6 +10,8 @@ import { IFormPackage, IRenderField, WidgetFormBuilder } from '../../widgets/wid
 export class WidgetPropsComponent implements OnInit, OnChanges {
 
   @Input() widget!: Widget | null;
+  @Output() applyStyles = new EventEmitter<INodeStyle>();
+  @Output() cancelEdit = new EventEmitter();
   widgetFormBuilder!: WidgetFormBuilder;
   formPackage!: IFormPackage;
 
@@ -28,7 +30,12 @@ export class WidgetPropsComponent implements OnInit, OnChanges {
   }
 
   handleSubmit() {
-    console.log(this.formPackage.formGroup.value);
+    const styles = this.formPackage.formGroup.value;
+    this.applyStyles.emit(styles);
+  }
+
+  cancelApply() {
+    this.cancelEdit.emit();
   }
 
 }
