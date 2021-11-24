@@ -13,8 +13,8 @@ export class WidgetsListComponent implements OnInit {
 
   constructor() {
     this.widgets = [
-      { text: 'Container', name: 'CONTAINER' },
-      { text: 'Heading', name: 'HEADING' },
+      { text: 'Container', name: 'SECTION' },
+      { text: 'Heading', name: 'H1' },
       { text: 'Button', name: 'BUTTON' },
     ]
   }

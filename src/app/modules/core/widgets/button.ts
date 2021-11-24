@@ -9,4 +9,8 @@ export class Button extends Widget {
   setLabel(label: string) {
     this.node.innerText = label;
   }
+
+  getLabel() {
+    return this.node.innerText;
+  }
 }

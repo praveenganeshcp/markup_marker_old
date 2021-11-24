@@ -10,14 +10,15 @@ import { WidgetFactory, WidgetTypes } from '../../widgets/widget-factory';
 export class BuilderComponent implements OnInit, AfterViewInit {
 
   @ViewChild('rootElement', {read: ElementRef}) rootElement!: ElementRef;
+  @ViewChild('builderContainer', {read: ElementRef}) builderContainer!: ElementRef;
   private showEditProps: boolean;
   private parentElement: Widget | null;
-  private editedElement: Widget | null;
+  editedWidget: Widget | null;
 
   constructor() { 
     this.parentElement = null;
     this.showEditProps = false;
-    this.editedElement = null;
+    this.editedWidget = null;
   }
 
   ngOnInit(): void { }
@@ -26,13 +27,29 @@ export class BuilderComponent implements OnInit, AfterViewInit {
     this.selectParent(this.convertoToWidget(this.rootElement.nativeElement));
   }
 
+  generateCode() {
+    this.removeOutline();
+    const rootElement = this.builderContainer.nativeElement.cloneNode(true);
+    const elements = rootElement.querySelectorAll('*') as HTMLElement[];
+    let cssText = '';
+    elements.forEach(element => {
+      cssText += `.${element.id} {${element.style.cssText}}\n`;
+      element.classList.add(`${element.id}`);
+      element.removeAttribute('style');
+      element.removeAttribute('id');
+    })
+    console.log(cssText);
+    console.log(rootElement.children[0].outerHTML);
+  }
+
   showEditPropsContainer(widget: Widget) { 
-    this.editedElement = widget;
+    this.editedWidget = widget;
     this.showEditProps = true;
   }
 
   hideEditPropsContainer() {
     this.showEditProps = false;
+    this.editedWidget = null;
   }
 
   isShowingEditProps() {
@@ -40,19 +57,22 @@ export class BuilderComponent implements OnInit, AfterViewInit {
   }
 
   convertoToWidget(element: any) {
-    return new Widget(element);
+    const widget = WidgetFactory.getInstance(element.tagName as WidgetTypes);
+    widget?.setElement(element);
+    return widget as Widget;
   }
 
   selectParent(widget: Widget) {
     this.parentElement = widget;
     this.removeOutline();
-    this.parentElement.setOutline();
+    this.parentElement.style.setOutline();
   }
 
   addWidget(widgetType: WidgetTypes) {
     const widget = WidgetFactory.getInstance(widgetType);
     if(widget) {
       this.parentElement?.appendNode(widget);
+      console.log(widget.style.getStyleText());
       if(widget.isContainer()) {
         this.selectParent(widget);
       }
@@ -84,7 +104,7 @@ export class BuilderComponent implements OnInit, AfterViewInit {
 
 
 
-// height, width, padding, color, backgroundcolor, border-radius, fontsize
+// height, width, padding, color, backgroundcolor, border-radius, fontsize, name
 
 // heading
 // small heading

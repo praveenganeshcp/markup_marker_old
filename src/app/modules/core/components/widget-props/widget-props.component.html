@@ -1,40 +1,8 @@
 <section class="builder__widget-editor">
-  <form class="widget-editor__form">
-    <section>
-      <label for="containerHeight">Height (%)</label>
-      <input formControlName="height" type="number" id="containerHeight" />
-    </section>
-    <section>
-      <label for="containerWidth">Width (%)</label>
-      <input formControlName="width" type="number" id="containerWidth" />
-    </section>
-    <section>
-      <label for="containerFontSize">Fontsize (em)</label>
-      <input formControlName="fontSize" type="number" id="containerFontSize" />
-    </section>
-    <section>
-      <label for="containerBg">Background Color</label>
-      <input formControlName="backgroundColor" type="color" id="containerBg" />
-    </section>
-    <section>
-      <label for="containerColor">Color</label>
-      <input formControlName="color" type="color" id="containerColor" />
-    </section>
-    <section>
-      <label for="containerPadLeft">Padding Left (%)</label>
-      <input formControlName="paddingLeft" type="number" id="containerPadLeft" />
-    </section> 
-    <section>
-      <label for="containerPadRight">Padding Right (%)</label>
-      <input formControlName="paddingRight" type="number" id="containerPadRight" />
-    </section> 
-    <section>
-      <label for="containerPadBelow">Padding bottom (%)</label>
-      <input formControlName="paddingRight" type="number" id="containerPadBelow">
-    </section> 
-    <section>
-      <label for="containerPadTop">Padding top (%)</label>
-      <input formControlName="paddingRight" type="number" id="containerPadTop" />
+  <form *ngIf="formPackage" [formGroup]="formPackage.formGroup" (ngSubmit)="handleSubmit()" class="widget-editor__form">
+    <section *ngFor="let formControl of formPackage.renderFields">
+      <label for="containerHeight">{{formControl.label}}</label>
+      <input [formControlName]="formControl.name" [type]="formControl.datatype" id="containerHeight"/>
     </section>
   <button type="button">Cancel</button>
   <button>Save</button>
