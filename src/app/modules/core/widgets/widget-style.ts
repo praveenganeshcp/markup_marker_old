@@ -18,12 +18,22 @@ export class WidgetStyle {
     this.node.style.outline = 'none';
   }
 
+  private rgbToHex(rgb: string) {
+    var a = rgb.split("(")[1].split(")")[0];
+    let b = a.split(",");
+    let c = b.map(function(x){             //For each array element
+      x = parseInt(x).toString(16);      //Convert to a base16 string
+      return (x.length==1) ? "0"+x : x;  //Add zero if we get only one character
+    })
+    return "#"+c.join("");
+  }
+
   getColor(): string {
-    return this.node.style.color;
+    return this.rgbToHex(this.node.style.color);
   }
 
   setColor(color: string): void {
-      this.node.style.color = color;
+    this.node.style.color = color;
   }
 
   getFontSize(): number {
@@ -96,7 +106,7 @@ export class WidgetStyle {
   }
 
   getBackgroundColor() {
-    return this.node.style.backgroundColor;
+    return this.rgbToHex(this.node.style.backgroundColor);
   }
 
   setBackgroundColor(color: string) {

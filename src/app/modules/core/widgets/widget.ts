@@ -24,6 +24,8 @@ export class Widget {
     this.style.setPaddingLeft(0);
     this.style.setPaddingRight(0);
     this.style.setPaddingTop(0);
+    this.style.setBackgroundColor('#FFFFFF');
+    this.style.setColor('#000000');
     this.setId(this.generateId());
   }
 
