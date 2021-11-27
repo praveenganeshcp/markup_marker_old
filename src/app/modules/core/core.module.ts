@@ -5,18 +5,22 @@ import { WidgetsListComponent } from './components/widgets-list/widgets-list.com
 import { WidgetPropsComponent } from './components/widget-props/widget-props.component';
 import { CoreRoutingModule } from './core-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ViewResultComponent } from './components/view-result/view-result.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 
 @NgModule({
   declarations: [
     BuilderComponent,
     WidgetsListComponent,
-    WidgetPropsComponent
+    WidgetPropsComponent,
+    ViewResultComponent
   ],
   imports: [
     CommonModule,
     CoreRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatDialogModule
   ]
 })
 export class CoreModule { }

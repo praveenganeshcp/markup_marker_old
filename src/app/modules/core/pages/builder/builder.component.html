@@ -1,13 +1,18 @@
 <section class="builder flex">
   <section class="builder__controls">
     <section class="builder__heading flex">
-      <h1>Markup maker</h1>
+      <span>Markup maker</span>
     </section>
     <main #builderContainer class="builder__container">
       <section id="root-container" (dblclick)="showEditPropsContainer(convertoToWidget($event.srcElement))" (click)="selectParent(convertoToWidget($event.srcElement))" #rootElement style="width: 100%; height: 100%; display: flex; flex-wrap: wrap; border: 1px solid black;"></section>
     </main>
+    <section class="builder__tips flex">
+      <p>Click on the element to select as parent</p>
+      <p>Blue outline indicates parent element</p>
+      <p>Double click the element to edit the props</p>
+    </section>
     <section  class="builder__node-ops flex">
-      <ng-container *ngIf="editedWidget == null"><
+      <ng-container *ngIf="editedWidget == null">
         <button (click)="copyNode()">Copy</button>
         <button (click)="removeNode()">Remove</button>
         <button (click)="generateCode()">Generate</button>

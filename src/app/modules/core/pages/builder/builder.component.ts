@@ -3,6 +3,8 @@ import { INodeStyle, Widget } from '../../widgets/widget';
 import { WidgetFactory, WidgetTypes } from '../../widgets/widget-factory';
 import htmlFormatter from 'pretty';
 import cssFormatter from 'cssbeautify';
+import { MatDialog } from '@angular/material/dialog';
+import { ViewResultComponent } from '../../components/view-result/view-result.component';
 
 @Component({
   selector: 'app-builder',
@@ -17,13 +19,14 @@ export class BuilderComponent implements OnInit, AfterViewInit {
   private parentElement: Widget | null;
   editedWidget: Widget | null;
 
-  constructor() { 
+  constructor(private matDialog: MatDialog) { 
     this.parentElement = null;
     this.showEditProps = false;
     this.editedWidget = null;
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void { 
+  }
 
   ngAfterViewInit() {
     this.selectParent(this.convertoToWidget(this.rootElement.nativeElement));
@@ -40,8 +43,17 @@ export class BuilderComponent implements OnInit, AfterViewInit {
       element.removeAttribute('style');
       element.removeAttribute('id');
     })
-    console.log(cssFormatter(cssText))
-    console.log(htmlFormatter(rootElement.children[0].outerHTML));
+    this.showResults(cssFormatter(cssText), htmlFormatter(rootElement.children[0].outerHTML))
+  }
+
+  showResults(htmlContent: string, cssContent: string) {
+    this.matDialog.open(ViewResultComponent, {
+      height: '90%',
+      width: '90%',
+      data: {
+        htmlContent, cssContent
+      }
+    })
   }
 
   showEditPropsContainer(widget: Widget) { 

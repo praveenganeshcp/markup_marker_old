@@ -4,7 +4,7 @@ import { BuilderComponent } from './pages/builder/builder.component';
 
 const routes: Routes = [
   {
-    path: 'home',
+    path: '',
     component: BuilderComponent
   }
 ];

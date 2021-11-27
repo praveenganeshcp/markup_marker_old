@@ -12,11 +12,19 @@
   width: 100%;
   height: 7%;
   font-size: 2em;
+  span {
+    font-weight: bolder;
+  }
+}
+.builder__tips {
+  width: 100%;
+  height: 5%;
+  font-weight: 600;
 }
 .builder__container {
-  height: 86%;
+  height: 81%;
   width: 100%;
-  padding: 3%;
+  padding: 1.5%;
 }
 .builder__node-ops {
   height: 7%;
@@ -24,7 +32,7 @@
 }
 .builder__node-ops button {
   padding: 1%;
-  font-size: 0.7em;
+  font-size: 0.9em;
 }
 .builder__widgets {
   width: 20%;

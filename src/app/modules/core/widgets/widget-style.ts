@@ -7,7 +7,7 @@ export class WidgetStyle {
   }
 
   setOutline() {
-    this.node.style.outline = '2px solid blue';
+    this.node.style.outline = '3px solid blue';
   }
 
   setNode(node: HTMLElement) {
