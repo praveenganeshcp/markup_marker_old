@@ -1,9 +1,10 @@
 import { Button } from "./button";
 import { FlexContainer } from "./flex-container";
 import { Heading } from "./heading";
+import { Image } from "./image";
 import { Widget } from "./widget";
 
-export type WidgetTypes = 'SECTION' | 'H1' | 'BUTTON';
+export type WidgetTypes = 'SECTION' | 'H1' | 'BUTTON' | 'IMG';
 
 export class WidgetFactory {
   static getInstance(widgetType: WidgetTypes): Widget | null {
@@ -15,7 +16,10 @@ export class WidgetFactory {
         return new Button();
       }
       case 'H1': {
-        return new Heading()
+        return new Heading();
+      }
+      case 'IMG': {
+        return new Image();
       }
     }
     return null;

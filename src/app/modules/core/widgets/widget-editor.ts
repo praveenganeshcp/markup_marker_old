@@ -2,7 +2,9 @@ import { FormBuilder, FormControl, FormGroup } from "@angular/forms";
 import { Button } from "./button";
 import { FlexContainer } from "./flex-container";
 import { Heading } from "./heading";
+import { Image } from "./image";
 import { Widget } from "./widget";
+import { WidgetTypes } from "./widget-factory";
 
 export interface IRenderField {
   name: string;
@@ -75,7 +77,7 @@ export class WidgetFormBuilder {
 
   getEditFormForElement(widget: Widget): IFormPackage | null {
     console.log(widget);
-    const elementName = widget.getElementName();
+    const elementName: WidgetTypes = widget.getElementName() as WidgetTypes;
     const formGroup = this.getCommonnFormControls(widget);
 
     if(elementName === 'H1') {
@@ -88,6 +90,10 @@ export class WidgetFormBuilder {
     }
     else if(elementName == 'SECTION') {
       this.addControlsToForm(formGroup, this.getFlexContainerElementControls(widget as FlexContainer))
+      return formGroup;
+    }
+    else if(elementName == 'IMG') {
+      this.addControlsToForm(formGroup, this.getImageElementControls(widget as Image))
       return formGroup;
     }
 
@@ -137,6 +143,18 @@ export class WidgetFormBuilder {
     ]
     const renderFields: IRenderField[] = [
       { name: 'innerText', label: 'Text', datatype: 'text' },
+    ]
+    return {
+      formFieldControls, renderFields
+    }
+  }
+
+  getImageElementControls(element: Image): IControlsPackage {
+    const formFieldControls: IElementControl[] = [
+      { name: 'src', control: this.formBuilder.control(element.getImgSrc()) },
+    ]
+    const renderFields: IRenderField[] = [
+      { name: 'src', label: 'Image path', datatype: 'text' },
     ]
     return {
       formFieldControls, renderFields

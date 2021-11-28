@@ -88,3 +88,12 @@ export class Widget {
   }
 
 }
+
+// add widget
+/**
+ * 1. add widget file
+ * 2. add in factory
+ * 3. add props in editor
+ * 4. add in list
+ * 5. add addstyle method
+ */

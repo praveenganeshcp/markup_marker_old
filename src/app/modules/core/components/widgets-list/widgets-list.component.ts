@@ -16,6 +16,7 @@ export class WidgetsListComponent implements OnInit {
       { text: 'Container', name: 'SECTION' },
       { text: 'Heading', name: 'H1' },
       { text: 'Button', name: 'BUTTON' },
+      { text: 'Image', name: 'IMG' }
     ]
   }
 
